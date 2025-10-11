@@ -55,3 +55,9 @@ h1 {
   cursor: pointer;
 }
 
+.loader-container {
+  display: flex;
+  justify-content: center; /* centra horizontalmente */
+  align-items: center;     /* centra verticalmente */
+  height: 80vh;            /* ocupa casi toda la altura de la pantalla */
+}

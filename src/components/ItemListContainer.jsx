@@ -1,7 +1,30 @@
+import Item from "./Item";
+import getData, { getProductsByCategory } from "../data/mockAPIService";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router";
+
 function ItemListContainer(props) {
+  const [productos, setProductos] = useState([]);
+  const { catParam } = useParams();
+
+  useEffect(() => {
+    if (catParam) {
+      getProductsByCategory(catParam)
+        .then((data) => setProductos(data))
+        .catch(() => setProductos([]));
+    } else {
+      getData().then((data) => setProductos(data));
+    }
+  }, [catParam]);
+
   return (
-    <section>
-      <h3>-- {props.greeting} -- </h3>
+    <section className="itemlist">
+      <h3>{props.greeting}</h3>
+      <div className="grid">
+        {productos.map((item) => (
+          <Item key={item.id} {...item} />
+        ))}
+      </div>
     </section>
   );
 }
