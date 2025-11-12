@@ -11,7 +11,6 @@ function ItemCount({ product }) {
   const { addItem } = useContext(CartContext);
 
   useEffect(() => {
-    // si querés chequear stock desde API, lo harías aquí
   }, [limit]);
 
   function sumar() {
@@ -30,7 +29,7 @@ function ItemCount({ product }) {
 
   function addToCart() {
     addItem({ ...product, quantity: count });
-    setAdded(true); // ocultar ItemCount y mostrar link al carrito
+    setAdded(true);
   }
 
   if (added) {

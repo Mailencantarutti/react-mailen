@@ -2,7 +2,7 @@ import { Link } from "react-router-dom"
 export default function Item( props ) {
   const texto = `Soy el producto ${props.title}`
   console.log(texto)
-  //inline styles
+
 
   return <div className="item-card" style={ { border: "solid 1px grey", backgroundColor: "#131111ff", margin: "10px" } }>
     <img 
@@ -18,4 +18,3 @@ export default function Item( props ) {
   </div>
 }
 
-// * REUTILIZABLE

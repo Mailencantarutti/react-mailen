@@ -27,15 +27,15 @@ export default function CheckoutForm({ handleCheckout }) {
         <h4>Ingresa tus datos personales</h4>
 
         <label>Nombre
-          <input name="username" type="text" value={formData.username} onChange={handleChange} required />
+          <input name="username" type="text" value={formData.username} onChange={handleChange} placeholder="Nombre completo" required />
         </label>
 
         <label>Email
-          <input name="email" type="email" value={formData.email} onChange={handleChange} required />
+          <input name="email" type="email" value={formData.email} onChange={handleChange} placeholder="Mail" required />
         </label>
 
         <label>Teléfono
-          <input name="phone" type="tel" value={formData.phone} onChange={handleChange} />
+          <input name="phone" type="tel" value={formData.phone} onChange={handleChange} placeholder="Teléfono" />
         </label>
 
         <div className="form-buttons">
