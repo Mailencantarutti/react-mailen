@@ -1,7 +1,7 @@
 import Item from "./Item";
-import getData, { getProductsByCategory } from "../data/mockAPIService";
+import getData, { getProductsByCategory } from "../data/firestoreService";
 import { useState, useEffect } from "react";
-import { useParams } from "react-router";
+import { useParams } from "react-router-dom";
 
 function ItemListContainer(props) {
   const [productos, setProductos] = useState([]);

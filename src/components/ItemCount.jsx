@@ -1,12 +1,17 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
+import { CartContext } from "../context/cartContext";
+import { Link } from "react-router-dom";
 
-function ItemCount() {
+function ItemCount({ product }) {
   const [count, setCount] = useState(1);
   const [limit, setLimit] = useState(false);
+  const [added, setAdded] = useState(false);
   const maxValue = 10;
 
+  const { addItem } = useContext(CartContext);
+
   useEffect(() => {
-    console.log("🗂️ Consultando stock...");
+    // si querés chequear stock desde API, lo harías aquí
   }, [limit]);
 
   function sumar() {
@@ -18,17 +23,36 @@ function ItemCount() {
   }
 
   function restar() {
-    if (count > 0) {
+    if (count > 1) {
       setCount(count - 1);
     }
   }
 
+  function addToCart() {
+    addItem({ ...product, quantity: count });
+    setAdded(true); // ocultar ItemCount y mostrar link al carrito
+  }
+
+  if (added) {
+    return (
+      <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+        <p>Agregado ✅</p>
+        <Link to="/cart">
+          <button>Ir al carrito</button>
+        </Link>
+      </div>
+    );
+  }
+
   return (
     <div className="counter">
-      <button onClick={restar}>-</button>
-      <p>{count}</p>
-      <button onClick={sumar}>+</button>
-      {limit && <p className="limit-msg">Máximo alcanzado</p>}
+      <div style={{ display: "flex", gap: "10px", alignItems: "center" }}>
+        <button onClick={restar}>-</button>
+        <p>{count}</p>
+        <button onClick={sumar}>+</button>
+      </div>
+      {limit && <p>Alcanzaste el máximo de productos</p>}
+      <button onClick={addToCart}>Agregar</button>
     </div>
   );
 }

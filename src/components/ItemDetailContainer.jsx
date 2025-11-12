@@ -1,34 +1,23 @@
-import { getProductById } from "../data/mockAPIService";
-import ItemCount from "./ItemCount";
-import { useParams } from "react-router";
+import { getProductById } from "../data/firestoreService";
+import { useParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-import { FadeLoader } from "react-spinners";
+import ItemDetail from "./ItemDetail";
 
 function ItemDetailContainer() {
   const [itemData, setItemData] = useState({ loading: true });
   const { idParam } = useParams();
 
   useEffect(() => {
-    getProductById(idParam).then((res) => setItemData(res));
+    if (!idParam) return;
+    getProductById(idParam)
+      .then((res) => setItemData(res))
+      .catch((err) => {
+        console.error("Error fetching product:", err);
+        setItemData({ loading: false });
+      });
   }, [idParam]);
 
-  return (
-    <div className="item-detail">
-      {itemData.loading ? (
-        <FadeLoader color={"#ec791bff"} size={50} />
-      ) : (
-        <div className="detail-card">
-          <img src={itemData.img} alt={itemData.title} />
-          <div>
-            <h2>{itemData.title}</h2>
-            <p>{itemData.description}</p>
-            <p className="price">💲{itemData.price}</p>
-            <ItemCount />
-          </div>
-        </div>
-      )}
-    </div>
-  );
+  return <ItemDetail itemData={itemData} />
 }
 
 export default ItemDetailContainer;

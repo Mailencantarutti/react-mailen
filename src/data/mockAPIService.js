@@ -1,4 +1,4 @@
-import { products } from "../data/data";
+import { products } from "./data.js";
 
 function getData() {
   return new Promise((resolve) => {
